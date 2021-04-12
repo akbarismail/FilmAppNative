@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { colors } from '../../utils';
+import { colors, fonts } from '../../utils';
 
 const Splash = ({ navigation }) => {
   useEffect(() => {
@@ -26,5 +26,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  textDesc: { color: colors.black, fontSize: 20, fontWeight: '500' },
+  textDesc: {
+    color: colors.text.active,
+    fontSize: 20,
+    fontFamily: fonts.primary['600'],
+  },
 });
