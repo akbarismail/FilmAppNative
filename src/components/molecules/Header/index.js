@@ -1,20 +1,20 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { IcLogo, IcSearch } from '../../../assets';
+import { IcArrowLeft, IcLogo, IcSearch } from '../../../assets';
 import { colors } from '../../../utils';
 
-const Header = () => {
+const Header = ({ isDetailMovie }) => {
   return (
     <View style={styles.content}>
-      <View>
+      <View style={styles.wrapAllContent}>
         <View style={styles.wrapLogo}>
-          <IcLogo />
-          <Text style={styles.textLogo}>ilm</Text>
+          {isDetailMovie ? <IcArrowLeft /> : <IcLogo />}
+          {!isDetailMovie ? <Text style={styles.textLogo}>ilm</Text> : null}
         </View>
-      </View>
-      <View>
-        <IcSearch />
+        <View>
+          <IcSearch />
+        </View>
       </View>
     </View>
   );
@@ -24,12 +24,14 @@ export default Header;
 
 const styles = StyleSheet.create({
   content: {
-    flexDirection: 'row',
-    paddingVertical: 12,
-    justifyContent: 'space-between',
     marginTop: 24,
     marginBottom: 10,
-    alignItems: 'center',
+  },
+  wrapAllContent: {
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'space-between',
+    paddingVertical: 12,
   },
   wrapLogo: {
     flexDirection: 'row',

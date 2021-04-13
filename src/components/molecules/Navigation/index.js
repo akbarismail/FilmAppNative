@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
   wrapContent: {
     borderBottomWidth: 1,
     borderColor: colors.border.secondary,
+    marginTop: 10,
   },
   wrapText: {
     flexDirection: 'row',

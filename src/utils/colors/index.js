@@ -1,7 +1,9 @@
 /* eslint-disable prettier/prettier */
 const mainColors = {
   pink: '#F19292',
+  pink2: '#F6D186',
   grey1: '#dddddd',
+  blue1: '#3F5096',
 };
 
 export const colors = {
@@ -15,5 +17,10 @@ export const colors = {
   border: {
     primary: mainColors.pink,
     secondary: mainColors.grey1,
+    third: mainColors.blue1,
+  },
+
+  wrapRate: {
+    primary: mainColors.pink2,
   },
 };
