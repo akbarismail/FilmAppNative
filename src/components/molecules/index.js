@@ -1,7 +1,16 @@
 /* eslint-disable prettier/prettier */
 import Header from './Header';
-import Navigation from './Navigation';
 import CardContentFilm from './CardContentFilm';
 import CardFilm from './CardFilm';
+import CardProfileActor from './CardProfileActor';
+import CardContentDetailMovie from './CardContentDetailMovie';
+import Slider from './Slider';
 
-export { Header, Navigation, CardContentFilm, CardFilm };
+export {
+  Header,
+  CardContentFilm,
+  CardFilm,
+  CardProfileActor,
+  CardContentDetailMovie,
+  Slider,
+};

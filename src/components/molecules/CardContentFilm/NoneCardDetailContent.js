@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    bottom: 24,
+    bottom: 14,
     left: 13,
   },
   coverFilm: {

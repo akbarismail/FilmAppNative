@@ -1,17 +1,14 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { IcArrowLeft, IcLogo, IcSearch } from '../../../assets';
-import { colors } from '../../../utils';
+import { StyleSheet, View } from 'react-native';
+import { IcSearch } from '../../../assets';
+import BrandIcon from './BrandIcon';
 
-const Header = ({ isDetailMovie }) => {
+const Header = ({ isDetailMovie, onPress }) => {
   return (
     <View style={styles.content}>
       <View style={styles.wrapAllContent}>
-        <View style={styles.wrapLogo}>
-          {isDetailMovie ? <IcArrowLeft /> : <IcLogo />}
-          {!isDetailMovie ? <Text style={styles.textLogo}>ilm</Text> : null}
-        </View>
+        <BrandIcon isDetailMovie={isDetailMovie} onPress={onPress} />
         <View>
           <IcSearch />
         </View>
@@ -24,7 +21,7 @@ export default Header;
 
 const styles = StyleSheet.create({
   content: {
-    marginTop: 24,
+    marginTop: 20,
     marginBottom: 10,
   },
   wrapAllContent: {
@@ -32,11 +29,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     paddingVertical: 12,
-  },
-  wrapLogo: {
-    flexDirection: 'row',
-  },
-  textLogo: {
-    color: colors.text.active,
   },
 });

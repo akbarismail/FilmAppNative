@@ -1,11 +1,11 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { colors, fonts } from '../../../utils';
 
-const CardTopMenu = ({ imgFrom, title, year, desc, rate }) => {
+const CardTopMenu = ({ imgFrom, title, year, desc, rate, onPress }) => {
   return (
-    <View style={styles.wrapCardNewsFilm}>
+    <TouchableOpacity onPress={onPress}>
       <View style={styles.wrapContent}>
         <Image source={imgFrom} style={styles.imgContent} />
         <View style={styles.wrapAlign}>
@@ -19,16 +19,13 @@ const CardTopMenu = ({ imgFrom, title, year, desc, rate }) => {
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
 export default CardTopMenu;
 
 const styles = StyleSheet.create({
-  wrapCardNewsFilm: {
-    marginTop: 9,
-  },
   wrapContent: { flexDirection: 'row', alignItems: 'center' },
   imgContent: { marginRight: 10 },
   wrapAlign: { flex: 1, justifyContent: 'space-between' },

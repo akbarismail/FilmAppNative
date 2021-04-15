@@ -8,19 +8,15 @@ import {
   ImgFilmPopular2,
   ImgFilmPopular3,
 } from '../../assets';
-import { CardFilm, Gap, Header, Navigation } from '../../components';
+import { CardFilm, Gap } from '../../components';
 import { colors } from '../../utils';
 
-const TopMenu = () => {
+const TopMenu = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.wrapSection}>
-          <Header />
-          <Navigation />
-        </View>
-        <View style={styles.wrapSection}>
-          <Gap height={13} />
+          <Gap height={27} />
           <CardFilm
             isTopMenu
             imgFrom={ImgFilmPopular1}
@@ -28,6 +24,7 @@ const TopMenu = () => {
             year={2020}
             desc="Drama, History, Action"
             rate={5.4}
+            onPress={() => navigation.navigate('DetailMovie')}
           />
           <Gap height={8} />
           <CardFilm
@@ -37,6 +34,7 @@ const TopMenu = () => {
             year={2020}
             desc="Comedy, Romance"
             rate={6.7}
+            onPress={() => navigation.navigate('DetailMovie')}
           />
           <Gap height={8} />
           <CardFilm
@@ -46,6 +44,7 @@ const TopMenu = () => {
             year={2020}
             desc="Comedy, Music"
             rate={6.5}
+            onPress={() => navigation.navigate('DetailMovie')}
           />
           <Gap height={8} />
           <CardFilm
@@ -55,6 +54,7 @@ const TopMenu = () => {
             year={2020}
             desc="Adventure, Fantasy, Science Fiction, Family"
             rate={5.9}
+            onPress={() => navigation.navigate('DetailMovie')}
           />
           <Gap height={8} />
           <CardFilm
@@ -64,6 +64,7 @@ const TopMenu = () => {
             year={2020}
             desc="Action, Drama"
             rate={5.4}
+            onPress={() => navigation.navigate('DetailMovie')}
           />
         </View>
         <Gap height={30} />

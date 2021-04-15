@@ -6,7 +6,7 @@ import { colors, fonts } from '../../utils';
 const Splash = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.replace('Home');
+      navigation.replace('MainApp');
     }, 3000);
   }, [navigation]);
 
