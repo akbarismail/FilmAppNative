@@ -1,16 +1,19 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet } from 'react-native';
+import configureStore from './store/configureStore';
 import Router from './router';
+
+const store = configureStore();
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Router />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Router />
+      </NavigationContainer>
+    </Provider>
   );
 };
 
 export default App;
-
-const styles = StyleSheet.create({});
