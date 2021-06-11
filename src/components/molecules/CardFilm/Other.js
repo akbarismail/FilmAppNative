@@ -7,7 +7,7 @@ import { fonts } from '../../../utils';
 const Other = ({ imgFrom, title, rate, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress}>
-      <Image source={imgFrom} />
+      <Image source={{ uri: imgFrom }} style={styles.imageContent} />
       <Text style={styles.titleFilm}>{title}</Text>
       <View style={styles.wrapContentText}>
         <IcStar />
@@ -16,14 +16,18 @@ const Other = ({ imgFrom, title, rate, onPress }) => {
     </TouchableOpacity>
   );
 };
-
 export default Other;
 
 const styles = StyleSheet.create({
+  imageContent: {
+    width: 90,
+    height: 120,
+  },
   titleFilm: {
     fontSize: 12,
     fontFamily: fonts.primary['400'],
     marginTop: 2,
+    width: 90,
   },
   wrapContentText: {
     flexDirection: 'row',

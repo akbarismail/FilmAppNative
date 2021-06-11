@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import {
   ScrollView,
   StyleSheet,
@@ -9,33 +10,78 @@ import {
 } from 'react-native';
 import { colors, fonts } from '../../utils';
 import { CardFilm, Gap, Slider } from '../../components';
+import { IcArrow } from '../../assets';
 import {
-  IcArrow,
-  ImgFilm1,
-  ImgFilm2,
-  ImgFilm3,
-  ImgFilmPopular1,
-  ImgFilmPopular2,
-  ImgFilmPopular3,
-} from '../../assets';
+  getTopRated,
+  getPopularMovies,
+  getUpcomingMovies,
+} from '../../store/actions/moviesAction';
+import { Fragment } from 'react';
+import { url_img } from '../../config/api';
 
-const Home = ({ navigation }) => {
+const Home = ({
+  navigation,
+  getRated,
+  getPopular,
+  getUpcoming,
+  dataRatedMovie,
+  dataPopularMovie,
+  dataUpcoming,
+}) => {
   const images = [
     'https://images.unsplash.com/photo-1485846234645-a62644f84728?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1480&q=80',
     'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80',
     'https://images.unsplash.com/photo-1505775561242-727b7fba20f0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80',
   ];
 
+  useEffect(() => {
+    getRated();
+    getPopular();
+    getUpcoming();
+  }, [getRated, getPopular, getUpcoming]);
+
+  console.log('dataUpcoming', dataUpcoming?.data?.length);
+
+  const popularMap = dataPopularMovie?.dataPopular?.slice(0, 7).map(popular => {
+    const { id, title, vote_average, poster_path } = popular;
+    return (
+      <Fragment key={id}>
+        <Gap width={20} />
+        <CardFilm
+          title={title}
+          rate={vote_average}
+          imgFrom={url_img + poster_path}
+          onPress={() => navigation.navigate('DetailMovie')}
+        />
+      </Fragment>
+    );
+  });
+
+  const upcomingMap = dataUpcoming?.data?.slice(7, 14).map(upcoming => {
+    const { id, title, poster_path, vote_average } = upcoming;
+    return (
+      <Fragment key={id}>
+        <Gap width={20} />
+        <CardFilm
+          title={title}
+          rate={vote_average}
+          imgFrom={url_img + poster_path}
+          onPress={() => navigation.navigate('DetailMovie')}
+        />
+      </Fragment>
+    );
+  });
+
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.wrapSection}>
-          <Text style={styles.textContent}>Akan Tayang</Text>
+          <Text style={styles.textContent}>Tayang Saat Ini</Text>
           <Slider images={images} />
         </View>
 
         <View style={styles.wrapNewsFilm}>
-          <Text style={styles.textDesc}>Film Terbaru</Text>
+          <Text style={styles.textDesc}>Film Akan Datang</Text>
           <TouchableOpacity>
             <IcArrow />
           </TouchableOpacity>
@@ -45,42 +91,7 @@ const Home = ({ navigation }) => {
           <View style={styles.wrapScroll}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={styles.newsFilm}>
-                <Gap width={20} />
-                <CardFilm
-                  title="The Outpost"
-                  rate={5.4}
-                  imgFrom={ImgFilm1}
-                  onPress={() => navigation.navigate('DetailMovie')}
-                />
-                <Gap width={11} />
-                <CardFilm
-                  title="Desperados"
-                  rate={6.7}
-                  imgFrom={ImgFilm2}
-                  onPress={() => navigation.navigate('DetailMovie')}
-                />
-                <Gap width={11} />
-                <CardFilm
-                  title="Eurovision..."
-                  rate={6.5}
-                  imgFrom={ImgFilm3}
-                  onPress={() => navigation.navigate('DetailMovie')}
-                />
-                <Gap width={11} />
-                <CardFilm
-                  title="Desperados"
-                  rate={6.7}
-                  imgFrom={ImgFilm2}
-                  onPress={() => navigation.navigate('DetailMovie')}
-                />
-                <Gap width={11} />
-                <CardFilm
-                  title="Desperados"
-                  rate={6.7}
-                  imgFrom={ImgFilm2}
-                  onPress={() => navigation.navigate('DetailMovie')}
-                />
-                <Gap width={20} />
+                {dataUpcoming?.data?.length > 0 && upcomingMap}
               </View>
             </ScrollView>
           </View>
@@ -99,42 +110,7 @@ const Home = ({ navigation }) => {
           <View style={styles.wrapScroll}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={styles.newsFilm}>
-                <Gap width={20} />
-                <CardFilm
-                  title="The Outpost"
-                  rate={6.1}
-                  imgFrom={ImgFilmPopular1}
-                  onPress={() => navigation.navigate('DetailMovie')}
-                />
-                <Gap width={11} />
-                <CardFilm
-                  title="Desperados"
-                  rate={8.7}
-                  imgFrom={ImgFilmPopular2}
-                  onPress={() => navigation.navigate('DetailMovie')}
-                />
-                <Gap width={11} />
-                <CardFilm
-                  title="Eurovision..."
-                  rate={7.5}
-                  imgFrom={ImgFilmPopular3}
-                  onPress={() => navigation.navigate('DetailMovie')}
-                />
-                <Gap width={11} />
-                <CardFilm
-                  title="Desperados"
-                  rate={5.4}
-                  imgFrom={ImgFilm2}
-                  onPress={() => navigation.navigate('DetailMovie')}
-                />
-                <Gap width={11} />
-                <CardFilm
-                  title="Desperados"
-                  rate={5.4}
-                  imgFrom={ImgFilm2}
-                  onPress={() => navigation.navigate('DetailMovie')}
-                />
-                <Gap width={20} />
+                {dataPopularMovie?.dataPopular?.length > 0 && popularMap}
               </View>
             </ScrollView>
           </View>
@@ -145,7 +121,23 @@ const Home = ({ navigation }) => {
   );
 };
 
-export default Home;
+const mapStateToProps = state => {
+  return {
+    dataRatedMovie: state.topRatedMovies,
+    dataPopularMovie: state.popular,
+    dataUpcoming: state.upcoming,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getRated: () => dispatch(getTopRated()),
+    getPopular: () => dispatch(getPopularMovies()),
+    getUpcoming: () => dispatch(getUpcomingMovies()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
 
 const styles = StyleSheet.create({
   container: { backgroundColor: colors.white, flex: 1 },
@@ -176,5 +168,6 @@ const styles = StyleSheet.create({
   newsFilm: {
     flexDirection: 'row',
     marginTop: 10,
+    paddingRight: 20,
   },
 });

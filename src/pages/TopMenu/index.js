@@ -1,13 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import {
-  ImgFilm1,
-  ImgFilm2,
-  ImgFilmPopular1,
-  ImgFilmPopular2,
-  ImgFilmPopular3,
-} from '../../assets';
 import { CardFilm, Gap } from '../../components';
 import { colors } from '../../utils';
 
@@ -19,7 +12,6 @@ const TopMenu = ({ navigation }) => {
           <Gap height={27} />
           <CardFilm
             isTopMenu
-            imgFrom={ImgFilmPopular1}
             title="The Outpost"
             year={2020}
             desc="Drama, History, Action"
@@ -29,7 +21,6 @@ const TopMenu = ({ navigation }) => {
           <Gap height={8} />
           <CardFilm
             isTopMenu
-            imgFrom={ImgFilmPopular2}
             title="Desperados"
             year={2020}
             desc="Comedy, Romance"
@@ -39,7 +30,6 @@ const TopMenu = ({ navigation }) => {
           <Gap height={8} />
           <CardFilm
             isTopMenu
-            imgFrom={ImgFilmPopular3}
             title="Eurovision Song Contest: The..."
             year={2020}
             desc="Comedy, Music"
@@ -49,7 +39,6 @@ const TopMenu = ({ navigation }) => {
           <Gap height={8} />
           <CardFilm
             isTopMenu
-            imgFrom={ImgFilm1}
             title="Artemis Fowl"
             year={2020}
             desc="Adventure, Fantasy, Science Fiction, Family"
@@ -59,7 +48,6 @@ const TopMenu = ({ navigation }) => {
           <Gap height={8} />
           <CardFilm
             isTopMenu
-            imgFrom={ImgFilm2}
             title="Force of Nature"
             year={2020}
             desc="Action, Drama"

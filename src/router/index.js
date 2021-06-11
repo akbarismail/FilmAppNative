@@ -3,8 +3,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-import { DetailMovie, Home, Splash } from '../pages';
-import TopMenu from '../pages/TopMenu';
+import { DetailMovie, Home, Splash, TopMenu } from '../pages';
 import { Header } from '../components';
 import { colors, fonts } from '../utils';
 import { View, StyleSheet } from 'react-native';

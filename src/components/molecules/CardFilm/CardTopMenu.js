@@ -7,7 +7,7 @@ const CardTopMenu = ({ imgFrom, title, year, desc, rate, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.wrapContent}>
-        <Image source={imgFrom} style={styles.imgContent} />
+        <Image source={{ uri: imgFrom }} style={styles.imgContent} />
         <View style={styles.wrapAlign}>
           <View>
             <Text style={styles.titleFilm}>{title}</Text>
@@ -27,7 +27,7 @@ export default CardTopMenu;
 
 const styles = StyleSheet.create({
   wrapContent: { flexDirection: 'row', alignItems: 'center' },
-  imgContent: { marginRight: 10 },
+  imgContent: { marginRight: 10, width: 90, height: 120 },
   wrapAlign: { flex: 1, justifyContent: 'space-between' },
   titleFilm: {
     fontSize: 15,
