@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   ImageBackground,
   ScrollView,
@@ -7,16 +7,6 @@ import {
   Text,
   View,
 } from 'react-native';
-import {
-  ImgActor2,
-  ImgActor3,
-  ImgBannerDetail,
-  ImgCoverDetail,
-  ImgFilm1,
-  ImgFilm2,
-  ImgFilm3,
-  ImgFilmPopular1,
-} from '../../assets';
 import {
   CardContentDetailMovie,
   CardContentFilm,
@@ -26,13 +16,64 @@ import {
   Header,
 } from '../../components';
 import { colors, fonts } from '../../utils';
-import { ImgActor1 } from '../../assets';
+import { connect } from 'react-redux';
+import {
+  getCredits,
+  getDetailMovie,
+  getRecommendation,
+} from '../../store/actions/moviesAction';
+import { url_img } from '../../config/api';
+import { Fragment } from 'react';
 
-const DetailMovie = ({ navigation }) => {
+const DetailMovie = ({
+  navigation,
+  route,
+  detailMovie,
+  getDetail,
+  getCreditMovie,
+  getRecommend,
+}) => {
+  console.log(route.params?.id);
+  useEffect(() => {
+    getDetail(route.params?.id);
+    getCreditMovie(route.params?.id);
+    getRecommend(route.params?.id);
+  }, [getDetail, route, getCreditMovie, getRecommend]);
+
+  console.log('detailMovie', detailMovie?.dataRecommend);
+
+  const creditMap = detailMovie?.dataCredit?.map(credit => {
+    const { id, character, profile_path, original_name } = credit;
+    return (
+      <CardProfileActor
+        key={id}
+        imgFrom={url_img + profile_path}
+        nameActor={original_name}
+        aboutActor={character}
+      />
+    );
+  });
+
+  const recommendMap = detailMovie?.dataRecommend?.slice(0, 9).map(item => {
+    const { id, poster_path, title, vote_average } = item;
+    return (
+      <Fragment key={id}>
+        <CardFilm
+          imgFrom={url_img + poster_path}
+          title={title}
+          rate={vote_average}
+        />
+        <Gap width={11} />
+      </Fragment>
+    );
+  });
+
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ImageBackground source={ImgBannerDetail} style={styles.background}>
+        <ImageBackground
+          source={{ uri: url_img + detailMovie?.data?.backdrop_path }}
+          style={styles.background}>
           <View style={styles.wrapSection}>
             <Header isDetailMovie onPress={() => navigation.navigate('Home')} />
           </View>
@@ -40,28 +81,24 @@ const DetailMovie = ({ navigation }) => {
             <Gap height={85} />
             <CardContentFilm
               isDetailContent
-              imgFrom={ImgCoverDetail}
-              title="Onward"
-              year={2020}
+              imgFrom={url_img + detailMovie?.data?.poster_path}
+              title={detailMovie?.data?.title}
+              year={detailMovie?.data?.release_date.substr(0, 4)}
             />
           </View>
         </ImageBackground>
 
         <View style={styles.wrapContentAbout}>
           <CardContentDetailMovie
-            duration="1h 42m"
-            language="Inggris"
-            rate={7.9}
+            duration={detailMovie?.data?.runtime}
+            language={detailMovie?.data?.spoken_languages[0]?.english_name}
+            rate={detailMovie?.data?.vote_average}
           />
         </View>
 
         <View style={styles.wrapSection}>
           <Text style={styles.textTitle}>Sinopsis</Text>
-          <Text style={styles.descSinopsis}>
-            In a suburban fantasy world, two teenage elf brothers embark on an
-            extraordinary quest to discover if there is still a little magic
-            left out there.
-          </Text>
+          <Text style={styles.descSinopsis}>{detailMovie?.data?.overview}</Text>
         </View>
 
         <View style={styles.wrapSection}>
@@ -70,26 +107,7 @@ const DetailMovie = ({ navigation }) => {
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={styles.wrapSectionCard}>
                 <Gap width={20} />
-                <CardProfileActor
-                  imgFrom={ImgActor1}
-                  nameActor="Tom Halland"
-                  aboutActor="Ian Lightfoot (voice)"
-                />
-                <CardProfileActor
-                  imgFrom={ImgActor2}
-                  nameActor="Chris Pratt"
-                  aboutActor="Ian Lightfoot (voice)"
-                />
-                <CardProfileActor
-                  imgFrom={ImgActor3}
-                  nameActor="Julia Louis D"
-                  aboutActor="Ian Lightfoot (voice)"
-                />
-                <CardProfileActor
-                  imgFrom={ImgActor3}
-                  nameActor="Julia Louis D"
-                  aboutActor="Ian Lightfoot (voice)"
-                />
+                {detailMovie?.dataCredit?.length > 0 && creditMap}
                 <Gap width={9} />
               </View>
             </ScrollView>
@@ -102,17 +120,7 @@ const DetailMovie = ({ navigation }) => {
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={styles.wrapSectionCard}>
                 <Gap width={20} />
-                <CardFilm imgFrom={ImgFilm1} title="Ad Astro" rate={6.3} />
-                <Gap width={11} />
-                <CardFilm imgFrom={ImgFilm2} title="Hamilton" rate={6.7} />
-                <Gap width={11} />
-                <CardFilm imgFrom={ImgFilm3} title="Journey 2" rate={8.9} />
-                <Gap width={11} />
-                <CardFilm
-                  imgFrom={ImgFilmPopular1}
-                  title="The Outpost"
-                  rate={5.4}
-                />
+                {detailMovie?.dataRecommend?.length > 0 && recommendMap}
                 <Gap width={20} />
               </View>
             </ScrollView>
@@ -125,7 +133,21 @@ const DetailMovie = ({ navigation }) => {
   );
 };
 
-export default DetailMovie;
+const mapStateToProps = state => {
+  return {
+    detailMovie: state.detailMovie,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getDetail: id => dispatch(getDetailMovie(id)),
+    getCreditMovie: id => dispatch(getCredits(id)),
+    getRecommend: id => dispatch(getRecommendation(id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailMovie);
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.white },

@@ -2,38 +2,32 @@
 import React from 'react';
 import { StyleSheet, View, Dimensions, ScrollView, Image } from 'react-native';
 import { CardContentFilm } from '..';
-import { ImgCoverFilm } from '../../../assets';
-import { Gap } from '../../atoms';
+import { url_img } from '../../../config/api';
 
-const Slider = ({ images }) => {
+const Slider = ({ playing }) => {
   const { width } = Dimensions.get('window');
   const height = width * 0.4;
+  const { title, poster_path, vote_average } = playing;
 
   return (
     <View style={styles.container(width, height)}>
       <View style={styles.wrapSection}>
-        <ScrollView
-          pagingEnabled
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={{ width, height }}>
-          <Gap width={20} />
-          {images.map((item, index) => (
-            <React.Fragment key={index}>
-              <View>
-                <Image
-                  source={{ uri: item }}
-                  style={styles.imgBg(width, height)}
-                />
-                <CardContentFilm
-                  imgFrom={ImgCoverFilm}
-                  title="Dreambuilders"
-                  desc="Animation, Adventure, Comedy"
-                  rate={6.5}
-                />
-              </View>
-            </React.Fragment>
-          ))}
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View>
+            <Image
+              source={{
+                uri:
+                  'https://images.unsplash.com/photo-1485846234645-a62644f84728?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1480&q=80',
+              }}
+              style={styles.imgBg(width, height)}
+            />
+            <CardContentFilm
+              imgFrom={url_img + poster_path}
+              title={title}
+              desc="Animation, Adventure, Comedy"
+              rate={vote_average}
+            />
+          </View>
         </ScrollView>
       </View>
     </View>
@@ -46,7 +40,6 @@ const styles = StyleSheet.create({
   container: (width, height) => ({
     width,
     height,
-    marginHorizontal: -20,
   }),
   wrapSection: { minHeight: 180 },
   imgBg: (width, height) => ({

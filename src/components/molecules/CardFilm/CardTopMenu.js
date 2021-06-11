@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.primary['600'],
     color: colors.black,
     marginTop: 2,
+    width: 200,
   },
   subTitle: {
     fontSize: 10,

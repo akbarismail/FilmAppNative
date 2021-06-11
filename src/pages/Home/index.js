@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
   ScrollView,
@@ -15,8 +15,8 @@ import {
   getTopRated,
   getPopularMovies,
   getUpcomingMovies,
+  getNowPlaying,
 } from '../../store/actions/moviesAction';
-import { Fragment } from 'react';
 import { url_img } from '../../config/api';
 
 const Home = ({
@@ -24,23 +24,18 @@ const Home = ({
   getRated,
   getPopular,
   getUpcoming,
+  getPlaying,
   dataRatedMovie,
   dataPopularMovie,
   dataUpcoming,
+  dataPlaying,
 }) => {
-  const images = [
-    'https://images.unsplash.com/photo-1485846234645-a62644f84728?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1480&q=80',
-    'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80',
-    'https://images.unsplash.com/photo-1505775561242-727b7fba20f0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80',
-  ];
-
   useEffect(() => {
     getRated();
     getPopular();
     getUpcoming();
-  }, [getRated, getPopular, getUpcoming]);
-
-  console.log('dataUpcoming', dataUpcoming?.data?.length);
+    getPlaying();
+  }, [getRated, getPopular, getUpcoming, getPlaying]);
 
   const popularMap = dataPopularMovie?.dataPopular?.slice(0, 7).map(popular => {
     const { id, title, vote_average, poster_path } = popular;
@@ -51,7 +46,11 @@ const Home = ({
           title={title}
           rate={vote_average}
           imgFrom={url_img + poster_path}
-          onPress={() => navigation.navigate('DetailMovie')}
+          onPress={() =>
+            navigation.navigate('DetailMovie', {
+              id: id,
+            })
+          }
         />
       </Fragment>
     );
@@ -72,28 +71,17 @@ const Home = ({
     );
   });
 
+  const nowPlayingMap = dataPlaying?.data
+    ?.slice(13, 19)
+    .map(playing => <Slider key={playing.id} playing={playing} />);
+
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.wrapSection}>
           <Text style={styles.textContent}>Tayang Saat Ini</Text>
-          <Slider images={images} />
-        </View>
-
-        <View style={styles.wrapNewsFilm}>
-          <Text style={styles.textDesc}>Film Akan Datang</Text>
-          <TouchableOpacity>
-            <IcArrow />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.wrapSection}>
-          <View style={styles.wrapScroll}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <View style={styles.newsFilm}>
-                {dataUpcoming?.data?.length > 0 && upcomingMap}
-              </View>
-            </ScrollView>
+          <View style={styles.newsFilm}>
+            {dataPlaying?.data?.length > 0 && nowPlayingMap}
           </View>
         </View>
 
@@ -115,6 +103,23 @@ const Home = ({
             </ScrollView>
           </View>
         </View>
+
+        <View style={styles.wrapNewsFilm}>
+          <Text style={styles.textDesc}>Film Akan Datang</Text>
+          <TouchableOpacity>
+            <IcArrow />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.wrapSection}>
+          <View style={styles.wrapScroll}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View style={styles.newsFilm}>
+                {dataUpcoming?.data?.length > 0 && upcomingMap}
+              </View>
+            </ScrollView>
+          </View>
+        </View>
         <Gap height={24} />
       </ScrollView>
     </View>
@@ -126,6 +131,7 @@ const mapStateToProps = state => {
     dataRatedMovie: state.topRatedMovies,
     dataPopularMovie: state.popular,
     dataUpcoming: state.upcoming,
+    dataPlaying: state.nowPlaying,
   };
 };
 
@@ -134,6 +140,7 @@ const mapDispatchToProps = dispatch => {
     getRated: () => dispatch(getTopRated()),
     getPopular: () => dispatch(getPopularMovies()),
     getUpcoming: () => dispatch(getUpcomingMovies()),
+    getPlaying: () => dispatch(getNowPlaying()),
   };
 };
 

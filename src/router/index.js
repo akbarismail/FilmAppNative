@@ -2,8 +2,14 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-
-import { DetailMovie, Home, Splash, TopMenu } from '../pages';
+import {
+  ComingSoon,
+  DetailMovie,
+  Home,
+  Popular,
+  Splash,
+  TopRated,
+} from '../pages';
 import { Header } from '../components';
 import { colors, fonts } from '../utils';
 import { View, StyleSheet } from 'react-native';
@@ -37,10 +43,10 @@ const MainApp = () => {
             backgroundColor: colors.border.primary,
           },
         }}>
-        <Tab.Screen name="Untuk Anda" component={Home} />
-        <Tab.Screen name="Terbaru" component={TopMenu} />
-        <Tab.Screen name="Terpopuler" component={TopMenu} />
-        <Tab.Screen name="Rating" component={TopMenu} />
+        <Tab.Screen name="For You" component={Home} />
+        <Tab.Screen name="Trending" component={Popular} />
+        <Tab.Screen name="Top Rated" component={TopRated} />
+        <Tab.Screen name="Next Soon" component={ComingSoon} />
       </Tab.Navigator>
     </View>
   );

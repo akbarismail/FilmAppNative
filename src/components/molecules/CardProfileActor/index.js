@@ -6,7 +6,7 @@ import { colors, fonts } from '../../../utils';
 const CardProfileActor = ({ imgFrom, nameActor, aboutActor }) => {
   return (
     <View style={styles.wrapActor}>
-      <Image source={imgFrom} style={styles.actorImg} />
+      <Image source={{ uri: imgFrom }} style={styles.actorImg} />
       <View style={styles.wrapAboutActor}>
         <Text style={styles.nameActor}>{nameActor}</Text>
       </View>
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontFamily: fonts.primary['400'],
     marginTop: 2,
+    textAlign: 'center',
   },
   aboutActor: {
     fontSize: 10,

@@ -9,6 +9,7 @@ const CardContentDetailMovie = ({ duration, language, rate }) => {
       <View style={styles.wrapAboutFilm}>
         <Text style={styles.title}>Durasi</Text>
         <Text style={styles.textDesc}>{duration}</Text>
+        <Text style={styles.textDesc}>Minutes</Text>
       </View>
       <View style={styles.wrapAboutFilm}>
         <Text style={styles.title}>Bahasa</Text>

@@ -7,7 +7,7 @@ import { colors, fonts } from '../../../utils';
 const NoneCardDetailContent = ({ imgFrom, title, desc, rate }) => {
   return (
     <View style={styles.wrapCover}>
-      <Image source={imgFrom} style={styles.coverFilm} />
+      <Image source={{ uri: imgFrom }} style={styles.coverFilm} />
       <View>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subTitle}>{desc}</Text>
@@ -34,11 +34,14 @@ const styles = StyleSheet.create({
   },
   coverFilm: {
     marginRight: 8,
+    width: 36,
+    height: 46,
   },
   title: {
     fontSize: 15,
     fontFamily: fonts.primary['400'],
     color: colors.white,
+    width: 150,
   },
   subTitle: {
     fontSize: 7,

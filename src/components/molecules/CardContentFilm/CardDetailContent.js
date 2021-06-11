@@ -6,7 +6,7 @@ import { colors, fonts } from '../../../utils';
 const CardDetailContent = ({ imgFrom, title, year }) => {
   return (
     <View style={styles.wrapCover}>
-      <Image source={imgFrom} style={styles.coverFilm} />
+      <Image source={{ uri: imgFrom }} style={styles.coverFilm} />
       <View style={styles.wrapContent}>
         <Text style={styles.title}>{title}</Text>
         <View style={styles.wrapYear}>
@@ -33,6 +33,9 @@ const styles = StyleSheet.create({
   },
   coverFilm: {
     marginRight: 6,
+    width: 90,
+    height: 120,
+    borderRadius: 5,
   },
   wrapContent: { flex: 1 },
   title: {
