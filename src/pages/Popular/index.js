@@ -21,7 +21,7 @@ const Popular = ({ navigation, getPopular, dataPopularMovie }) => {
         <CardFilm
           isTopMenu
           title={title}
-          year={release_date}
+          year={release_date.substr(0, 4)}
           rate={vote_average}
           desc="Drama, History, Action"
           imgFrom={url_img + poster_path}

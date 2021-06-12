@@ -3,7 +3,15 @@ import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { colors, fonts } from '../../../utils';
 
-const CardDetailContent = ({ imgFrom, title, year }) => {
+const CardDetailContent = ({ imgFrom, title, year, genre }) => {
+  const genreMap = genre?.map(item => {
+    const { id, name } = item;
+    return (
+      <Text key={id} style={styles.subTitle}>
+        {name}
+      </Text>
+    );
+  });
   return (
     <View style={styles.wrapCover}>
       <Image source={{ uri: imgFrom }} style={styles.coverFilm} />
@@ -12,13 +20,7 @@ const CardDetailContent = ({ imgFrom, title, year }) => {
         <View style={styles.wrapYear}>
           <Text style={styles.year}>{year}</Text>
         </View>
-        <View style={styles.wrapDesc}>
-          <Text style={styles.subTitle}>Animation</Text>
-          <Text style={styles.subTitle}>Family</Text>
-          <Text style={styles.subTitle}>Adventure</Text>
-          <Text style={styles.subTitle}>Comedy</Text>
-          <Text style={styles.subTitle}>Fantasy</Text>
-        </View>
+        <View style={styles.wrapDesc}>{genre?.length > 0 && genreMap}</View>
       </View>
     </View>
   );

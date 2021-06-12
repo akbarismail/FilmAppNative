@@ -20,7 +20,7 @@ const TopRated = ({ navigation, getRated, dataRatedMovie }) => {
         <CardFilm
           isTopMenu
           title={title}
-          year={release_date}
+          year={release_date.substr(0, 4)}
           rate={vote_average}
           desc="Drama, History, Action"
           imgFrom={`https://image.tmdb.org/t/p/original${poster_path}`}

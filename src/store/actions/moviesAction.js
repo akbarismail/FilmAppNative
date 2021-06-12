@@ -89,7 +89,6 @@ export const getRecommendation = id => {
       const res = await API.get(
         `${id}/recommendations?api_key=${api_key}`,
       ).catch(err => Promise.reject(err));
-      console.log(res.data.results);
       return res.data.results;
     },
   };

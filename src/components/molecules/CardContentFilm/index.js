@@ -10,9 +10,17 @@ const CardContentFilm = ({
   title,
   rate,
   year,
+  genre,
 }) => {
   if (isDetailContent) {
-    return <CardDetailContent imgFrom={imgFrom} title={title} year={year} />;
+    return (
+      <CardDetailContent
+        imgFrom={imgFrom}
+        title={title}
+        year={year}
+        genre={genre}
+      />
+    );
   }
   return (
     <NoneCardDetailContent
