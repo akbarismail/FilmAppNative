@@ -25,7 +25,7 @@ const Popular = ({ navigation, getPopular, dataPopularMovie }) => {
           rate={vote_average}
           desc="Drama, History, Action"
           imgFrom={url_img + poster_path}
-          onPress={() => navigation.navigate('DetailMovie')}
+          onPress={() => navigation.navigate('DetailMovie', { id: id })}
         />
       </Fragment>
     );

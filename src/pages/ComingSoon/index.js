@@ -13,7 +13,7 @@ const ComingSoon = ({ navigation, getUpcoming, dataUpcoming }) => {
     getUpcoming();
   }, [getUpcoming]);
 
-  const popularMap = dataUpcoming?.data?.map(popular => {
+  const upcoming = dataUpcoming?.data?.map(popular => {
     const { id, title, vote_average, poster_path, release_date } = popular;
     return (
       <Fragment key={id}>
@@ -25,7 +25,7 @@ const ComingSoon = ({ navigation, getUpcoming, dataUpcoming }) => {
           rate={vote_average}
           desc="Drama, History, Action"
           imgFrom={url_img + poster_path}
-          onPress={() => navigation.navigate('DetailMovie')}
+          onPress={() => navigation.navigate('DetailMovie', { id: id })}
         />
       </Fragment>
     );
@@ -34,7 +34,7 @@ const ComingSoon = ({ navigation, getUpcoming, dataUpcoming }) => {
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.wrapSection}>
-          {dataUpcoming?.data?.length > 0 && popularMap}
+          {dataUpcoming?.data?.length > 0 && upcoming}
         </View>
         <Gap height={25} />
       </ScrollView>

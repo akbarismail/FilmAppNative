@@ -46,11 +46,7 @@ const Home = ({
           title={title}
           rate={vote_average}
           imgFrom={url_img + poster_path}
-          onPress={() =>
-            navigation.navigate('DetailMovie', {
-              id: id,
-            })
-          }
+          onPress={() => navigation.navigate('DetailMovie', { id: id })}
         />
       </Fragment>
     );
@@ -65,7 +61,7 @@ const Home = ({
           title={title}
           rate={vote_average}
           imgFrom={url_img + poster_path}
-          onPress={() => navigation.navigate('DetailMovie')}
+          onPress={() => navigation.navigate('DetailMovie', { id: id })}
         />
       </Fragment>
     );

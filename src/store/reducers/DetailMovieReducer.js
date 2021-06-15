@@ -2,7 +2,7 @@
 import { GET_DETAIL_MOVIE, GET_CREDIT, GET_RECOMMENDATION } from '../constant';
 
 const initialState = {
-  data: {},
+  detail: null,
   dataCredit: [],
   dataRecommend: [],
   loading: false,
@@ -18,13 +18,13 @@ const DetailMovieReducer = (state = initialState, action) => {
     case `${GET_DETAIL_MOVIE}_FULFILLED`:
       return {
         ...state,
-        data: action.payload,
+        detail: action.payload,
         loading: false,
       };
     case `${GET_DETAIL_MOVIE}_REJECTED`:
       return {
         ...state,
-        data: {},
+        detail: {},
         loading: false,
       };
     case `${GET_CREDIT}_PENDING`:

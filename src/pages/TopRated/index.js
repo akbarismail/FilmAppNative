@@ -24,7 +24,7 @@ const TopRated = ({ navigation, getRated, dataRatedMovie }) => {
           rate={vote_average}
           desc="Drama, History, Action"
           imgFrom={`https://image.tmdb.org/t/p/original${poster_path}`}
-          onPress={() => navigation.navigate('DetailMovie')}
+          onPress={() => navigation.navigate('DetailMovie', { id: id })}
         />
       </Fragment>
     );

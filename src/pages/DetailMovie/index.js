@@ -39,8 +39,6 @@ const DetailMovie = ({
     getRecommend(route.params?.id);
   }, [getDetail, route, getCreditMovie, getRecommend]);
 
-  console.log('detailMovie', detailMovie?.data);
-
   const creditMap = detailMovie?.dataCredit?.map(credit => {
     const { id, character, profile_path, original_name } = credit;
     return (
@@ -61,6 +59,7 @@ const DetailMovie = ({
           imgFrom={url_img + poster_path}
           title={title}
           rate={vote_average}
+          onPress={() => navigation.navigate('DetailMovie', { id: id })}
         />
         <Gap width={11} />
       </Fragment>
@@ -70,10 +69,12 @@ const DetailMovie = ({
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {detailMovie?.data && (
+        {detailMovie?.detail && (
           <>
             <ImageBackground
-              source={{ uri: url_img + detailMovie?.data?.backdrop_path }}
+              source={{
+                uri: url_img + detailMovie?.detail?.backdrop_path,
+              }}
               style={styles.background}>
               <View style={styles.wrapSection}>
                 <Header
@@ -85,26 +86,35 @@ const DetailMovie = ({
                 <Gap height={85} />
                 <CardContentFilm
                   isDetailContent
-                  imgFrom={url_img + detailMovie?.data?.poster_path}
-                  title={detailMovie?.data?.title}
-                  year={detailMovie?.data?.release_date.substr(0, 4)}
-                  genre={detailMovie?.data?.genres}
+                  imgFrom={url_img + detailMovie?.detail?.poster_path}
+                  title={detailMovie?.detail?.title}
+                  year={
+                    detailMovie?.detail?.release_date &&
+                    detailMovie?.detail?.release_date?.substr(0, 4)
+                  }
+                  genre={
+                    detailMovie?.detail?.genres?.length > 0 &&
+                    detailMovie?.detail?.genres
+                  }
                 />
               </View>
             </ImageBackground>
 
             <View style={styles.wrapContentAbout}>
               <CardContentDetailMovie
-                duration={detailMovie?.data?.runtime}
-                language={detailMovie?.data?.spoken_languages[0]?.english_name}
-                rate={detailMovie?.data?.vote_average}
+                duration={detailMovie?.detail?.runtime}
+                language={
+                  detailMovie?.detail?.spoken_languages?.length > 0 &&
+                  detailMovie?.detail?.spoken_languages[0]?.name
+                }
+                rate={detailMovie?.detail?.vote_average}
               />
             </View>
 
             <View style={styles.wrapSection}>
               <Text style={styles.textTitle}>Sinopsis</Text>
               <Text style={styles.descSinopsis}>
-                {detailMovie?.data?.overview}
+                {detailMovie?.detail?.overview}
               </Text>
             </View>
           </>
